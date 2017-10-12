@@ -1,19 +1,19 @@
 {
-  "name": "webpack-into",
+  "name": "web-frameworks",
   "version": "1.0.0",
-  "description": "Webpack intro using reveal.js",
-  "homepage": "https://github.com/cjhowald/webpack-intro",
+  "description": "Web frameworks presentation using reveal.js",
+  "homepage": "https://github.com/cjhowald/web-frameworks",
   "scripts": {
     "test": "grunt test",
     "start": "grunt serve",
     "build": "grunt"
   },
   "author": {
-    "name": "Colin Howald",
+    "name": "Colin Howald"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cjhowald/webpack-intro.git"
+    "url": "https://github.com/cjhowald/web-frameworks.git"
   },
   "engines": {
     "node": ">=4.0.0"

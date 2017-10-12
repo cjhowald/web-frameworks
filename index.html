@@ -25,429 +25,547 @@
 <div class="reveal">
     <div class="slides">
         <section>
-            <h1>Webpack</h1>
-            <h2>Introduction and guide</h2>
+            <h1>Web frameworks</h1>
+            <h2>The future of tools development</h2>
         </section>
         <section>
-            <section><h2>What is webpack?</h2></section>
-            <section>
-                <h2>Module bundler</h2>
-                <ol>
-                    <li>processes app</li>
-                    <li>builds a dependency graph</li>
-                    <li>packages into one or more bundles</li>
-                </ol>
-            </section>
+            <h2>Purpose</h2>
+            <p class="fragment">Evaluate the leading frontend web frameworks for our next generation of tools.</p>
+        </section>
+        <section>
+            <h2>Goals</h2>
+            <ol>
+                <li class="fragment">Define most important framework props</li>
+                <li class="fragment">Evaluate a few promising frameworks</li>
+                <strong>
+                    <li class="fragment">Pick a framework for new tools</li>
+                </strong>
+            </ol>
+        </section>
+        <section>
+            <h2>Props</h2>
+            <ul>
+                <li>Learning curve</li>
+                <li>Ducumentation</li>
+                <li>Dev productivity</li>
+                <li>Reusability</li>
+                <li>Maintainability</li>
+                <li>Community</li>
+                <li>Maturity</li>
+                <li>Performance</li>
+                <li>Testability</li>
+                <li>Migration</li>
+                <li>License</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Frameworks</h2>
+            <ul>
+                <li>Angular (v4+)</li>
+                <li>React*</li>
+                <li>Vue*</li>
+            </ul>
         </section>
         <section>
             <section>
-                <h2>Why use it?</h2>
-                <p class="fragment">A brief history of JS dependencies</p>
-            </section>
-            <section><h2>Everything in the &lt;head&gt;</h2></section>
-            <section data-markdown>
-                <textarea data-template>
-                ```
-                <head>
-                    <script src="jquery.min.js"></script>
-                    <script src="bootstrap.min.js"></script>
-                    <script src="angular.min.js"></script>
-                </head>
-                ```
-                </textarea>
+                <h2>Results</h2>
             </section>
             <section>
-                <h2>Build</h2>
-                <pre><code class="hljs" data-trim>
-            // build-script.js
-            var scripts = [
-            'jquery.min.js',
-            'jquery.some.plugin.js',
-            'main.js'
-            ].concat().uglify().writeTo('bundle.js');
-            &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
-            </code></pre>
-            </section>
-            <section>
-                <h2>Task Runners</h2>
+                <h2>Angular: the good</h2>
                 <ul>
-                    <li>Grunt</li>
-                    <li>Gulp</li>
+                    <li>Dev productivity: ng-cli</li>
+                    <li>Reusability: components & services</li>
+                    <li>Testability: karma + jasmine, protractor</li>
                 </ul>
             </section>
             <section>
-                <h2>Gulp</h2>
-                <h3>The beginning</h3>
-                <pre><code class="hljs javascript" data-trim>
-gulp.task('scripts', function () {
-  return gulp.src(path.join(conf.paths.src, '/**/*.js'))
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.size());
-});
-            </code></pre>
-            </section>
-            <section>
-                <h2>Gulp</h2>
-                <h3>The reckoning</h3>
-                <pre><code class="hljs javascript" data-trim>
-gulp.task('html', ['inject', 'partials'], function () {
-  var partialsInjectFile = gulp.src(path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'), { read: false });
-  var partialsInjectOptions = {
-    starttag: '<!-- inject:partials -->',
-    ignorePath: path.join(conf.paths.tmp, '/partials'),
-    addRootSlash: false
-  };
-
-  var htmlFilter = $.filter('*.html');
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');
-  var assets;
-
-  return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
-    .pipe($.inject(partialsInjectFile, partialsInjectOptions))
-    .pipe(assets = $.useref.assets())
-    .pipe(jsFilter)
-    .pipe($.ngAnnotate())
-    // .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
-    .pipe(jsFilter.restore())
-    .pipe(cssFilter)
-    .pipe($.csso())
-    .pipe(cssFilter.restore())
-    .pipe(assets.restore())
-    .pipe($.useref())
-    .pipe(htmlFilter)
-    .pipe($.minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true,
-      conditionals: true
-    }))
-    .pipe(htmlFilter.restore())
-    .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
-    .pipe($.size({ title: path.join(conf.paths.dist, '/'), showFiles: true }));
-});
-            </code></pre>
-            </section>
-            <section>
-                <h2>Enter webpack</h2>
+                <h2>Angular: the bad</h2>
                 <ul>
-                    <li>Declarative</li>
-                    <li>Dependency graph</li>
-                    <li>Understands CommonJS, AMD, UMD, and ES6 modules</li>
-                    <li>Dead asset elimination, code splitting, asset processing, easy stable prod deploys, cache
-                        busting
+                    <li>Learning curve: notoriously complex and hard to learn, very large API surface, RxJS, Typescript,
+                        Zone.js
                     </li>
-                    <li>Works with any type of asset (JS, CSS, images, fonts)</li>
-                    <li>Development server</li>
-                    <li>Large, growing community</li>
-                    <li>Great <a href="https://webpack.js.org/">documentation</a></li>
+                    <li>Documentation: bad at launch, has improved</li>
+                    <li>Maintainability: many separate files</li>
+                    <li>Community: fragmented, some moving from AngularJS, others transitioning despite Google backing
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>React: the good</h2>
+                <ul>
+                    <li>Community/maturity: very large, stable, growing community backed by Facebook</li>
+                    <li>Documentation: great official docs, lots of videos, courses</li>
+                    <li>Dev Productivity: create-react-app, great devtools & IDE support, StatsApp</li>
+                    <li>Testability: Jest</li>
+                    <li>Maintainability: Separation of concerns, pure functional components</li>
+                </ul>
+            </section>
+            <section>
+                <h2>React: the bad</h2>
+                <ul>
+                    <li>Learning curve: JSX, Redux, ES2015+ (better than Angular)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Vue: The good</h2>
+                <ul>
+                    <li>Learning curve: known for minimalism, simplicity, easy to learn and use, familiar when coming
+                        from AngularJS (e.g. templates, v-* directives)
+                    </li>
+                    <li>Developer productivity: vue-cli, great devtools, good IDE support, AngularJS familiarity</li>
+                    <li>Maintainability: single file components</li>
+                    <li>Documentation: great official docs</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Vue: the bad</h2>
+                <ul>
+                    <li>Community/maturity: newer than React (2014), much smaller but rapidly growing community, not
+                        backed by a large organization, could fade out
+                    </li>
+                    <li>Testability: no dedicated tools, can use any JS testing library (e.g. karma + jasmine, mocha +
+                        chai)
+                    </li>
                 </ul>
             </section>
         </section>
+        <section><h2>Show me the code</h2></section>
         <section>
-            <section>
-                <h2>Concepts</h2>
-            </section>
-            <section>
-                <h2>Entry</h2>
-                <pre><code class="hljs javascript" data-trim>
-  entry: './path/to/my/entry/file.js'
-                </code></pre>
-            </section>
-            <section>
-                <h2>Output</h2>
-                <pre><code class="hljs javascript" data-trim>
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'my-first-webpack.bundle.js'
-  }
-                </code></pre>
-            </section>
-            <section>
-                <h2>Loaders</h2>
-                <pre><code class="hljs javascript" data-trim>
-  module: {
-    rules: [
-      { test: /\.txt$/, use: 'raw-loader' }
-    ]
-  }
-                </code></pre>
-            </section>
-            <section>
-                <h2>Plugins</h2>
-                <pre><code class="hljs javascript" data-trim>
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-    new HtmlWebpackPlugin({template: './src/index.html'})
-  ]      </code></pre>
-            </section>
-            <section>
-                <h2>Example</h2>
-                <p>webpack.conf.js</p>
-                <pre><code class="hljs javascript">const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+            <h2>Conclusions</h2>
+            <ul>
+                <li class="fragment">Angular is out</li>
+                <li class="fragment">React wins for community & maturity, safer bet</li>
+                <li class="fragment">Vue wins for learning curve and dev experience, riskier option</li>
+            </ul>
+        </section>
+        <section>
+            <h2><a href="https://docs.google.com/a/spaceapegames.com/document/d/1e8MNFN7gDaTyCIaNDO-XIeEYol1PmFzSB6Hsxku4FV8/edit?usp=sharing">Research Document</a></h2>
+        </section>
+        <section><h2>Questions & comments</h2></section>
+    </div>
+</div>
+
+
+<!--           <section>
+               <h2>Module bundler</h2>
+               <ol>
+                   <li>processes app</li>
+                   <li>builds a dependency graph</li>
+                   <li>packages into one or more bundles</li>
+               </ol>
+           </section>
+       </section>
+       <section>
+           <section>
+               <h2>Why use it?</h2>
+               <p class="fragment">A brief history of JS dependencies</p>
+           </section>
+           <section><h2>Everything in the &lt;head&gt;</h2></section>
+           <section data-markdown>
+               <textarea data-template>
+               ```
+               <head>
+                   <script src="jquery.min.js"></script>
+                   <script src="bootstrap.min.js"></script>
+                   <script src="angular.min.js"></script>
+               </head>
+               ```
+               </textarea>
+           </section>
+           <section>
+               <h2>Build</h2>
+               <pre><code class="hljs" data-trim>
+           // build-script.js
+           var scripts = [
+           'jquery.min.js',
+           'jquery.some.plugin.js',
+           'main.js'
+           ].concat().uglify().writeTo('bundle.js');
+           &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+           </code></pre>
+           </section>
+           <section>
+               <h2>Task Runners</h2>
+               <ul>
+                   <li>Grunt</li>
+                   <li>Gulp</li>
+               </ul>
+           </section>
+           <section>
+               <h2>Gulp</h2>
+               <h3>The beginning</h3>
+               <pre><code class="hljs javascript" data-trim>
+gulp.task('scripts', function () {
+ return gulp.src(path.join(conf.paths.src, '/**/*.js'))
+   .pipe($.jshint())
+   .pipe($.jshint.reporter('jshint-stylish'))
+   .pipe($.size());
+});
+           </code></pre>
+           </section>
+           <section>
+               <h2>Gulp</h2>
+               <h3>The reckoning</h3>
+               <pre><code class="hljs javascript" data-trim>
+gulp.task('html', ['inject', 'partials'], function () {
+ var partialsInjectFile = gulp.src(path.join(conf.paths.tmp, '/partials/templateCacheHtml.js'), { read: false });
+ var partialsInjectOptions = {
+   starttag: '&lt;!&ndash; inject:partials &ndash;&gt;',
+   ignorePath: path.join(conf.paths.tmp, '/partials'),
+   addRootSlash: false
+ };
+
+ var htmlFilter = $.filter('*.html');
+ var jsFilter = $.filter('**/*.js');
+ var cssFilter = $.filter('**/*.css');
+ var assets;
+
+ return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
+   .pipe($.inject(partialsInjectFile, partialsInjectOptions))
+   .pipe(assets = $.useref.assets())
+   .pipe(jsFilter)
+   .pipe($.ngAnnotate())
+   // .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
+   .pipe(jsFilter.restore())
+   .pipe(cssFilter)
+   .pipe($.csso())
+   .pipe(cssFilter.restore())
+   .pipe(assets.restore())
+   .pipe($.useref())
+   .pipe(htmlFilter)
+   .pipe($.minifyHtml({
+     empty: true,
+     spare: true,
+     quotes: true,
+     conditionals: true
+   }))
+   .pipe(htmlFilter.restore())
+   .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
+   .pipe($.size({ title: path.join(conf.paths.dist, '/'), showFiles: true }));
+});
+           </code></pre>
+           </section>
+           <section>
+               <h2>Enter webpack</h2>
+               <ul>
+                   <li>Declarative</li>
+                   <li>Dependency graph</li>
+                   <li>Understands CommonJS, AMD, UMD, and ES6 modules</li>
+                   <li>Dead asset elimination, code splitting, asset processing, easy stable prod deploys, cache
+                       busting
+                   </li>
+                   <li>Works with any type of asset (JS, CSS, images, fonts)</li>
+                   <li>Development server</li>
+                   <li>Large, growing community</li>
+                   <li>Great <a href="https://webpack.js.org/">documentation</a></li>
+               </ul>
+           </section>
+       </section>
+       <section>
+           <section>
+               <h2>Concepts</h2>
+           </section>
+           <section>
+               <h2>Entry</h2>
+               <pre><code class="hljs javascript" data-trim>
+ entry: './path/to/my/entry/file.js'
+               </code></pre>
+           </section>
+           <section>
+               <h2>Output</h2>
+               <pre><code class="hljs javascript" data-trim>
+ output: {
+   path: path.resolve(__dirname, 'dist'),
+   filename: 'my-first-webpack.bundle.js'
+ }
+               </code></pre>
+           </section>
+           <section>
+               <h2>Loaders</h2>
+               <pre><code class="hljs javascript" data-trim>
+ module: {
+   rules: [
+     { test: /\.txt$/, use: 'raw-loader' }
+   ]
+ }
+               </code></pre>
+           </section>
+           <section>
+               <h2>Plugins</h2>
+               <pre><code class="hljs javascript" data-trim>
+ plugins: [
+   new webpack.optimize.UglifyJsPlugin(),
+   new HtmlWebpackPlugin({template: './src/index.html'})
+ ]      </code></pre>
+           </section>
+           <section>
+               <h2>Example</h2>
+               <p>webpack.conf.js</p>
+               <pre><code class="hljs javascript">const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const webpack = require('webpack'); //to access built-in plugins
 const path = require('path');
 
 const config = {
-  entry: './path/to/my/entry/file.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'my-first-webpack.bundle.js'
-  },
-  module: {
-    rules: [
-      { test: /\.txt$/, use: 'raw-loader' }
-    ]
-  },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-    new HtmlWebpackPlugin({template: './src/index.html'})
-  ]
+ entry: './path/to/my/entry/file.js',
+ output: {
+   path: path.resolve(__dirname, 'dist'),
+   filename: 'my-first-webpack.bundle.js'
+ },
+ module: {
+   rules: [
+     { test: /\.txt$/, use: 'raw-loader' }
+   ]
+ },
+ plugins: [
+   new webpack.optimize.UglifyJsPlugin(),
+   new HtmlWebpackPlugin({template: './src/index.html'})
+ ]
 };
 
 module.exports = config;
-                </code></pre>
-            </section>
-        </section>
-        <section>
-            <section><h2>Show me the code!</h2></section>
-            <section>index.js
-                <pre><code class="hljs" data-trim>
+               </code></pre>
+           </section>
+       </section>
+       <section>
+           <section><h2>Show me the code!</h2></section>
+           <section>index.js
+               <pre><code class="hljs" data-trim>
 import _ from 'lodash';
 
 function component() {
-    var element = document.createElement('div');
+   var element = document.createElement('div');
 
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-    return element;
+   return element;
 }
 
 document.body.appendChild(component());
-                </code></pre>
-            </section>
-            <section>index.html
-                <pre><code class="hljs" data-trim>
+               </code></pre>
+           </section>
+           <section>index.html
+               <pre><code class="hljs" data-trim>
 &lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Getting Started&lt;/title&gt;
-        &lt;script src=&quot;https://unpkg.com/lodash@4.16.6&quot;&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
-    &lt;/body&gt;
+   &lt;head&gt;
+       &lt;title&gt;Getting Started&lt;/title&gt;
+       &lt;script src=&quot;https://unpkg.com/lodash@4.16.6&quot;&gt;&lt;/script&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+       &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+   &lt;/body&gt;
 &lt;/html&gt;
-                </code></pre>
-            </section>
-            <section>webpack.conf.js
-            <pre><code class="hljs" data-trim>const path = require('path');
+               </code></pre>
+           </section>
+           <section>webpack.conf.js
+           <pre><code class="hljs" data-trim>const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+ entry: './src/index.js',
+ output: {
+   filename: 'bundle.js',
+   path: path.resolve(__dirname, 'dist')
+ }
 };
-                </code></pre>
-            </section>
-            <section>package.json
-                <pre><code class="hljs" data-trim>
+               </code></pre>
+           </section>
+           <section>package.json
+               <pre><code class="hljs" data-trim>
 {
-  ...
-  "scripts": {
-    "build": "webpack"
-  },
-  ...
+ ...
+ "scripts": {
+   "build": "webpack"
+ },
+ ...
 }
-                </code></pre>
-            </section>
-            <section>command line
-                <pre><code class="hljs" data-trim>
+               </code></pre>
+           </section>
+           <section>command line
+               <pre><code class="hljs" data-trim>
 npm i lodash
 npm i -D webpack
 npm build
-                </code></pre>
-            </section>
-        </section>
-        <section>
-            <section><h2>Real world example</h2></section>
-            <section><pre><code class="hljs" data-trim>
+               </code></pre>
+           </section>
+       </section>
+       <section>
+           <section><h2>Real world example</h2></section>
+           <section><pre><code class="hljs" data-trim>
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app/app.module.js', // it all starts here
-  devtool: 'cheap-module-source-map',
-  output: { // generate bundle at ./dist/bundle.js
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  devServer: { // webpack-dev-server for local development, serves up dist on port 3000 with goodies like live reload, in-memory file server
-    contentBase: './dist',
-    port: 3000
-  },
-  module: {
-    rules: [ // NOTE: for rules with multiple loaders, loaders are applied in reverse order (i.e. right to left or bottom to top depending on the formatting)
-      {
-        test: /\.js$/,
-        loaders: [
-          'babel-loader', // compile es2015+ code down to es5, currently only being used for angularjs-annotate-plugin
-          'required-loader?', // used to require all templates in app.module.js
-          {loader: 'eslint-loader', options: {configFile: './.eslintrc'}}
-        ],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', // creates style nodes from JS strings
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-            options: {
-              alias: {
-                '../fonts/bootstrap': 'bootstrap-sass/assets/fonts/bootstrap' // tell bootstrap where to find its fonts
-              }
-            }
-          },
-          'sass-loader' // compiles Sass to CSS
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader' // process image files, saving a version to dist and replacing the reference
-        ]
-      },
-      {
-        test: /\.html$/,
-        use: [
-          "ngtemplate-loader?relativeTo=" + (path.resolve(__dirname, './src')) + "/", // push html strings to angular template cache
-          'html-loader' // parse html as string
-        ],
-        exclude: /index\.html/ // index.html is loaded by HtmlWebpackPlugin (below) and we don't want any special handling
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader' // process fonts, saving a version to dist and replacing the reference
-        ]
-      }
-    ]
-  },
-  plugins: [
-    new webpack.ProvidePlugin({ // make some globals available globally for certain dependencies that require them
-      $: 'jquery',
-      'window.jQuery': 'jquery',
-      'moment': 'moment',
-      'Selectize': 'selectize'
-    }),
-    new CopyWebpackPlugin([{from: 'src/assets', to: 'assets'}]), // copy assets folder from src to dist
-    new HtmlWebpackPlugin({ // generate dist/index.html using src/index.html as a template and injecting a link to the bundle
-      template: 'src/index.html'
-    }),
-    new webpack.DefinePlugin({
-      VERSION: JSON.stringify(require("./package.json").version)
-    })
-  ]
+ entry: './src/app/app.module.js', // it all starts here
+ devtool: 'cheap-module-source-map',
+ output: { // generate bundle at ./dist/bundle.js
+   filename: 'bundle.js',
+   path: path.resolve(__dirname, 'dist')
+ },
+ devServer: { // webpack-dev-server for local development, serves up dist on port 3000 with goodies like live reload, in-memory file server
+   contentBase: './dist',
+   port: 3000
+ },
+ module: {
+   rules: [ // NOTE: for rules with multiple loaders, loaders are applied in reverse order (i.e. right to left or bottom to top depending on the formatting)
+     {
+       test: /\.js$/,
+       loaders: [
+         'babel-loader', // compile es2015+ code down to es5, currently only being used for angularjs-annotate-plugin
+         'required-loader?', // used to require all templates in app.module.js
+         {loader: 'eslint-loader', options: {configFile: './.eslintrc'}}
+       ],
+       exclude: /node_modules/
+     },
+     {
+       test: /\.scss$/,
+       use: ['style-loader', // creates style nodes from JS strings
+         {
+           loader: 'css-loader', // translates CSS into CommonJS
+           options: {
+             alias: {
+               '../fonts/bootstrap': 'bootstrap-sass/assets/fonts/bootstrap' // tell bootstrap where to find its fonts
+             }
+           }
+         },
+         'sass-loader' // compiles Sass to CSS
+       ]
+     },
+     {
+       test: /\.(png|svg|jpg|gif)$/,
+       use: [
+         'file-loader' // process image files, saving a version to dist and replacing the reference
+       ]
+     },
+     {
+       test: /\.html$/,
+       use: [
+         "ngtemplate-loader?relativeTo=" + (path.resolve(__dirname, './src')) + "/", // push html strings to angular template cache
+         'html-loader' // parse html as string
+       ],
+       exclude: /index\.html/ // index.html is loaded by HtmlWebpackPlugin (below) and we don't want any special handling
+     },
+     {
+       test: /\.(woff|woff2|eot|ttf|otf)$/,
+       use: [
+         'file-loader' // process fonts, saving a version to dist and replacing the reference
+       ]
+     }
+   ]
+ },
+ plugins: [
+   new webpack.ProvidePlugin({ // make some globals available globally for certain dependencies that require them
+     $: 'jquery',
+     'window.jQuery': 'jquery',
+     'moment': 'moment',
+     'Selectize': 'selectize'
+   }),
+   new CopyWebpackPlugin([{from: 'src/assets', to: 'assets'}]), // copy assets folder from src to dist
+   new HtmlWebpackPlugin({ // generate dist/index.html using src/index.html as a template and injecting a link to the bundle
+     template: 'src/index.html'
+   }),
+   new webpack.DefinePlugin({
+     VERSION: JSON.stringify(require("./package.json").version)
+   })
+ ]
 };
 
-                </code></pre></section><section><pre><code class="hljs" data-trim>
+               </code></pre></section><section><pre><code class="hljs" data-trim>
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
 entry: './src/app/app.module.js', // it all starts here
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
 devtool: 'cheap-module-source-map',
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
 output: { // generate bundle at ./dist/bundle.js
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+   filename: 'bundle.js',
+   path: path.resolve(__dirname, 'dist')
 },
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
 devServer: { // webpack-dev-server for local development, serves up dist on port 3000 with goodies like live reload, in-memory file server
-    contentBase: './dist',
-    port: 3000
+   contentBase: './dist',
+   port: 3000
 },
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
- module: {
-    rules: [ // NOTE: for rules with multiple loaders, loaders are applied in reverse order (i.e. right to left or bottom to top depending on the formatting)
-      {
-        test: /\.js$/,
-        loaders: [
-          'babel-loader', // compile es2015+ code down to es5, currently only being used for angularjs-annotate-plugin
-          'required-loader?', // used to require all templates in app.module.js
-          {loader: 'eslint-loader', options: {configFile: './.eslintrc'}}
-        ],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', // creates style nodes from JS strings
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-            options: {
-              alias: {
-                '../fonts/bootstrap': 'bootstrap-sass/assets/fonts/bootstrap' // tell bootstrap where to find its fonts
-              }
-            }
-          },
-          'sass-loader' // compiles Sass to CSS
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader' // process image files, saving a version to dist and replacing the reference
-        ]
-      },
-      {
-        test: /\.html$/,
-        use: [
-          "ngtemplate-loader?relativeTo=" + (path.resolve(__dirname, './src')) + "/", // push html strings to angular template cache
-          'html-loader' // parse html as string
-        ],
-        exclude: /index\.html/ // index.html is loaded by HtmlWebpackPlugin (below) and we don't want any special handling
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader' // process fonts, saving a version to dist and replacing the reference
-        ]
-      }
-    ]
-  },
-                </code></pre></section>
-            <section><pre><code class="hljs" data-trim>
- plugins: [
-    new webpack.ProvidePlugin({ // make some globals available globally for certain dependencies that require them
-      $: 'jquery',
-      'window.jQuery': 'jquery',
-      'moment': 'moment',
-      'Selectize': 'selectize'
-    }),
-    new CopyWebpackPlugin([{from: 'src/assets', to: 'assets'}]), // copy assets folder from src to dist
-    new HtmlWebpackPlugin({ // generate dist/index.html using src/index.html as a template and injecting a link to the bundle
-      template: 'src/index.html'
-    }),
-    new webpack.DefinePlugin({
-      VERSION: JSON.stringify(require("./package.json").version)
-    })
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
+module: {
+   rules: [ // NOTE: for rules with multiple loaders, loaders are applied in reverse order (i.e. right to left or bottom to top depending on the formatting)
+     {
+       test: /\.js$/,
+       loaders: [
+         'babel-loader', // compile es2015+ code down to es5, currently only being used for angularjs-annotate-plugin
+         'required-loader?', // used to require all templates in app.module.js
+         {loader: 'eslint-loader', options: {configFile: './.eslintrc'}}
+       ],
+       exclude: /node_modules/
+     },
+     {
+       test: /\.scss$/,
+       use: ['style-loader', // creates style nodes from JS strings
+         {
+           loader: 'css-loader', // translates CSS into CommonJS
+           options: {
+             alias: {
+               '../fonts/bootstrap': 'bootstrap-sass/assets/fonts/bootstrap' // tell bootstrap where to find its fonts
+             }
+           }
+         },
+         'sass-loader' // compiles Sass to CSS
+       ]
+     },
+     {
+       test: /\.(png|svg|jpg|gif)$/,
+       use: [
+         'file-loader' // process image files, saving a version to dist and replacing the reference
+       ]
+     },
+     {
+       test: /\.html$/,
+       use: [
+         "ngtemplate-loader?relativeTo=" + (path.resolve(__dirname, './src')) + "/", // push html strings to angular template cache
+         'html-loader' // parse html as string
+       ],
+       exclude: /index\.html/ // index.html is loaded by HtmlWebpackPlugin (below) and we don't want any special handling
+     },
+     {
+       test: /\.(woff|woff2|eot|ttf|otf)$/,
+       use: [
+         'file-loader' // process fonts, saving a version to dist and replacing the reference
+       ]
+     }
+   ]
+ },
+               </code></pre></section>
+           <section><pre><code class="hljs" data-trim>
+plugins: [
+   new webpack.ProvidePlugin({ // make some globals available globally for certain dependencies that require them
+     $: 'jquery',
+     'window.jQuery': 'jquery',
+     'moment': 'moment',
+     'Selectize': 'selectize'
+   }),
+   new CopyWebpackPlugin([{from: 'src/assets', to: 'assets'}]), // copy assets folder from src to dist
+   new HtmlWebpackPlugin({ // generate dist/index.html using src/index.html as a template and injecting a link to the bundle
+     template: 'src/index.html'
+   }),
+   new webpack.DefinePlugin({
+     VERSION: JSON.stringify(require("./package.json").version)
+   })
 ]
-                </code></pre></section>
-        </section>
-        <section><h2>Questions?</h2></section>
-    </div>
+               </code></pre></section>
+       </section>
+       <section><h2>Questions?</h2></section>
+   </div>
 </div>
+
+-->
 
 <script src="lib/js/head.min.js"></script>
 <script src="js/reveal.js"></script>
